@@ -8,12 +8,17 @@
 
 </head>
 <body>
-    <div class="container bg-warning-subtle">
-        <h1>User's Page id {{ user_id }}</h1>
-    <ul>
-        <li>name:</li>
-        <li>email:</li>
-    </ul>
+    <div class="container ">
+        <div class="card">
+            <div class="card-header">
+               <h1>Página de  {{ user[1] }}</h1>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> {{ user[3] }}</p>
+                <p><strong>Full Name:</strong> {{ user[1] }} {{ user[2] }}</p>
+            </div>
+        </div>
+        <a href="{{ url_for('friends_view') }}" class="btn btn-primary mt-3">Back to Friends</a>
     </div>
 </body>
 </html>

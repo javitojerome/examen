@@ -10,23 +10,44 @@
 <body>
     <div class="container">
         <h1 class="text-center">Friends Page</h1>
-    <p class="text-center">Here is the list of your friends.</p>
-    <div style="margin-left:200px">
-        <ol class=" list-inline m-4 bg-primary-subtle">
-            <li class="m-4">name:   <button class="btn btn-warning">add</button></li>
-            <li class="m-4">name:   <button class="btn btn-warning">add</button></li>
-            <li class="m-4">name:   <button class="btn btn-warning">add</button></li>
-        </ol>
+    <p class="text-center">Acá están tus amigos</p>
+    <div>
+        {% if friends %}
+        <ul class="list-group">
+            {% for friend in friends %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ friend[1] }} {{ friend[2]}} ({{ friend[3] }})
+                    
+                    <form method="POST" style="display: inline;">
+                        <a href="{{ url_for('user_profile', user_id=session['user_id']) }}">Ver perfil</a>
+                        
+                    </form>
+                    <form method="POST" style="display: inline;">
+                        <button type="submit" name="remove_friend" value="{{ friend[0] }}" class="btn btn-danger">eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>no has agregado amigos!</p>
+    {% endif %}
     </div>
 
-    <p class="text-center">Here is the list whoes not your friend yet.</p>
-    <div style="margin-left:200px">
-        <ul class="list-inline m-4 bg-success-subtle">
-            <li class="m-4">name:   <button class="btn btn-danger">delete</button></li>
-            <li class="m-4">name:   <button class="btn btn-danger">delete</button></li>
-            <li class="m-4">name:   <button class="btn btn-danger">delete</button></li>
-        </ul>
-    </div>
+    <p class="text-center">Estas personas no son tus amigas.</p>
+    {% if no_friends %}
+            <ul class="list-group">
+                {% for user in no_friends %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ user[1] }} {{ user[2]}} ({{ user[3] }})
+                        <form method="POST" style="display: inline;">
+                            <button type="submit" name="add_friend" value="{{ user[0] }}" class="btn btn-success">Add Friend</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>todos son tus amigos!</p>
+        {% endif %}
     
     
     </div>
